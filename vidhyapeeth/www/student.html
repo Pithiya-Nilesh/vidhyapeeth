@@ -1,0 +1,165 @@
+
+{% extends "templates/base.html" %}
+{% block title %}{{ education_settings.portal_title }}{% endblock %}
+{% from "www/learning/macros/card.html" import program_card %}
+{% from "www/learning/macros/card.html" import null_card %}
+
+{% block head_include %}
+	<meta name="description" content="{{ education_settings.description }}" />
+	<meta name="keywords" content="ERP Software, Cloud ERP, Open Source ERP, Accounting Software, Online ERP, Online Accounting, ERP for small business" />
+	<link rel="stylesheet" href="../files/css/styles.min.css" />
+	<link rel="stylesheet" href="../files/css/responsive.css" />
+	<style>
+		div.card-hero-img {
+			height: 220px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-color: rgb(250, 251, 252);
+		}
+
+		.card-image-wrapper {
+			display: flex;
+			overflow: hidden;
+			height: 220px;
+			background-color: rgb(250, 251, 252);
+			justify-content: center;
+		}
+
+		.image-body {
+			align-self: center;
+			color: #d1d8dd;
+			font-size: 24px;
+			font-weight: 600;
+			line-height: 1;
+			padding: 20px;
+		}
+
+		.inner-slide{
+			margin: 0 1rem 0 1rem;
+			padding: 1rem 0 0 0;
+			color: rgb(255, 255, 255);
+			background: #900035;
+			width:100%;
+		}
+
+		.text_white{
+			color:white;
+		}
+
+	</style>
+{% endblock %}
+
+{% block content %}
+<main class="main"></main>
+	<section class="section background&#45;&#45;green-mild">
+		<div class="container">
+		   <div class="row mt-5">
+			<div class="inner-slide">
+				<div class="container">
+					<h5 class="text_white">{{_('Your Courses')}}</h5>
+				</div>
+			</div>
+		</div>
+			<div class="row offset-margin mt-4 mb-3">
+				{% for c in courses %}
+					{% for course in c %}
+						<div class="col-sm-4 col-md-6 col-lg-4 mb-4 text-left">
+							<a href="/learning/course?name={{ course.name }}&program={{ program.name }}" class="no-decoration no-underline">
+							<div class="card h-100">
+								{% if course.hero_image %}
+								<div class="card-hero-img" style="background-image: url('{{ course.hero_image }}')"></div>
+								{% else %}
+								<div class="card-image-wrapper text-center">
+									<div class="image-body"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
+								</div>
+								{% endif %}
+								<div class='card-body'>
+									<h5 class='card-title'>{{ course.course_name }}</h5>
+									<div class="text-muted">{{ course.description[:110] + '...' if course.description else '' }}</div>
+								</div>
+								<!-- {% if has_access and progress[course.name] %}
+									<div class='card-footer'>
+										{% if progress[course.name].completed %}
+										<span class="indicator green">{{_('Completed')}}</span>
+										{% elif progress[course.name].started %}
+										<span class="indicator orange">{{_('In Progress')}}</span>
+										{% else %}
+										<span class="indicator blue">{{_('Start')}}</span>
+										{% endif %}
+									</div>
+								{% endif %} -->
+							</div>
+							</a>
+						</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
+			<div class="row mb-5">
+			<div class="inner-slide">
+				<div class="container">
+					<h5 class="text_white">{{_('Our Other Courses')}}</h5>
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				{% if featured_programs %}
+					{% for program in featured_programs %}
+						{% if program.has_access %}
+						{% else %}
+							{{ program_card(program.program, program.has_access) }}
+						{% endif %}
+					{% endfor %}
+				{% else %}
+				<!--<p class="lead">You have not enrolled in any program. Contact your Instructor.</p>-->
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!-- section end-->
+
+{% macro card(course) %}
+<div class="col-sm-4 col-md-6 col-lg-4 mb-4 text-left">
+	<a href="/learning/course?name={{ course.name }}&program={{ program.name }}" class="no-decoration no-underline">
+	<div class="card h-100">
+		{% if course.hero_image %}
+		<div class="card-hero-img" style="background-image: url('{{ course.hero_image }}')"></div>
+		{% else %}
+		<div class="card-image-wrapper text-center">
+			<div class="image-body"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
+		</div>
+		{% endif %}
+		<div class='card-body'>
+			<h5 class='card-title'>{{ course.course_name }}</h5>
+			<div class="text-muted">{{ course.description[:110] + '...' if course.description else '' }}</div>
+		</div>
+
+<!-- progress code start hear -->
+
+
+<!-- progress code end hear -->
+
+	</div>
+	</a>
+</div>
+{% endmacro %}
+
+
+<!-- libs-->
+<!--<script src="../files/js/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script>-->
+<script src="../files/js/libs.min.js"></script>
+<!-- scripts-->
+<script src="../files/js/common.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/bootstrap-4-web.min.js"></script>
+<script>
+	$('.slider-nav2').slick({
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		dots: false,
+		focusOnSelect: true
+	});
+</script>
+
+{% endblock %}
+

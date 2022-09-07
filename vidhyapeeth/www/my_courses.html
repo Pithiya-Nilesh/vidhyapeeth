@@ -1,0 +1,86 @@
+
+{% extends "templates/base.html" %}
+{% block title %}{{ education_settings.portal_title }}{% endblock %}
+{% from "www/learning/macros/card.html" import program_card %}
+{% from "www/learning/macros/card.html" import null_card %}
+
+{% block head_include %}
+	<meta name="description" content="{{ education_settings.description }}" />
+	<meta name="keywords" content="ERP Software, Cloud ERP, Open Source ERP, Accounting Software, Online ERP, Online Accounting, ERP for small business" />
+	<link rel="stylesheet" href="../files/css/styles.min.css" />
+	<link rel="stylesheet" href="../files/css/responsive.css" />
+	<style>
+		div.card-hero-img {
+			height: 220px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-color: rgb(250, 251, 252);
+		}
+
+		.card-image-wrapper {
+			display: flex;
+			overflow: hidden;
+			height: 220px;
+			background-color: rgb(250, 251, 252);
+			justify-content: center;
+		}
+
+		.image-body {
+			align-self: center;
+			color: #d1d8dd;
+			font-size: 24px;
+			font-weight: 600;
+			line-height: 1;
+			padding: 20px;
+		}
+
+		.inner-slide{
+			margin: 0 1rem 0 1rem;
+			padding: 1rem 0 0 0;
+			color: rgb(255, 255, 255);
+			background: #900035;;
+			width:100%;
+		}
+
+		.text_white{
+			color:white;
+		}
+
+	</style>
+{% endblock %}
+
+{% block content %}
+<section class="top-section background&#45;&#45;green-mild" style="padding: 6rem 0rem;">
+	<div class='container pb-2'>
+		<div class="row mt-5">
+			<div class="inner-slide">
+				<div class="container">
+					<h5 class="text_white">{{_('Your Courses')}}</h5>
+				</div>
+			</div>
+		</div>
+		<p class="mt-2">
+			{% if frappe.session.user == 'Guest' %}
+				<a class="btn btn-primary btn-lg" href="/login#signup">{{_('Sign Up')}}</a>
+			{% endif %}
+		</p>
+	</div>
+	<div class='container'>
+		<div class="row">
+			{% if featured_programs %}
+				{% for program in featured_programs %}
+					{% if program.has_access %}
+						{{ program_card(program.program, program.has_access) }}
+					{% else %}
+
+					{% endif %}
+
+				{% endfor %}
+			{% else %}
+				<p class="lead">You have not enrolled in any program. Contact your Instructor.</p>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,249 @@
+@media only screen and (max-width: 767px) {
+	body {
+    font-size: 15px;
+	}
+	.header-logo__img-size {
+    width: 104px;
+	}
+	.aside-menu__link {
+    color: #000;
+    font-size: 14px;
+    text-transform: capitalize;
+	margin-bottom: 1rem;
+	padding: 5px 0px;
+	}
+	.ad-box-row {
+    	flex-wrap: wrap;
+	}
+	.ad-box-outer-container {
+    flex: none;
+    width: 100%;
+	margin-bottom:15px;
+	}
+	.ad-box-inner-container .right-side-container {
+    display:none;
+	}
+	.slide-wrap .content .promo-slider__title{
+		font-size: 25px;
+	}
+	.slide-wrap {
+    padding: 125px 0 80px;
+    background: linear-gradient(165deg, #ffbc00  0%, #ff6a00 100%);
+	}
+	.form-subscribe .input-group-append {
+    margin-left: -1px;
+    width: 100%;
+	}
+	.form-subscribe .button--filled {
+    width: 100%;
+	}
+	.form-subscribe .form-control {
+    margin-bottom: 10px;
+	}
+	.promo-pannel__video {
+    max-width: 100%;
+    height: 100%;
+    min-height: 150px;
+	}
+	.img-1, .img-2 {
+		display: none;
+	}
+	.design-process-content {
+    padding: 2rem;
+	}
+	footer.footer--front_3 .footer__lower {
+    border-top: 1px solid #d8d8d8;
+    padding: 9px 0;
+	}
+	.form-subscribe-wrap h5{
+		font-size: 18px;
+	}
+	.heading__title {
+    font-size: 25px;
+	}
+	.about-us__subtitle {
+    font-size: 25px;
+	}
+	.border-1 {
+    border: 6px solid #fff;
+    border-radius: 1px;
+	}
+	.founding-acharya-violet-bg:before {
+    height: 100%;
+	}
+	.inner-slide {
+    padding: 92px 0 30px;
+    min-height: auto;
+	}
+	.promo-primary__title{
+		line-height: 23px;
+		font-size: 22px;
+	}
+	.img-heading {
+    width: 25px;
+    height: 25px;
+	}
+	.video-content .heading__title img{
+		display: none
+	}
+	.video-content {
+    padding: 30px 0 0;
+	}
+	.shop-item__img {
+    
+    height: 241px;
+	}
+	.shop-item__name {
+    font-size: 15px;
+		text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+	}
+	.sidebar-container-content {
+    top: 0px;
+	}
+	.box-course-details {
+    width: 100%;
+    margin: 20px 0;
+	}
+	.box-course-details:hover {
+		transform: scale(0.9);
+	}
+	.home-video .promo-pannel__video {
+    min-height: 250px;
+    margin-top: 50px;
+	}
+	.img-4{
+		display: none;
+	}
+	.content{
+		text-align: center;
+	}
+	.icon{
+		font-size: 1.5rem;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 1.5rem;
+	}
+	.slide-wrap {
+		padding: 125px 0 125px;
+	}
+	.heading__pre-title{
+	    font-size: 14px;
+	}
+	.aside-menu__link {
+		color: #000;
+		font-size: 14px;
+		text-transform: capitalize;
+		margin-bottom: 1rem;
+		padding: 5px 0px;
+	}
+	.heading__title {
+    font-size: 20px;
+	}
+	.about-us__subtitle {
+    font-size: 20px;
+	}
+	.promo-pannel__video {
+    max-width: 100%;
+    height: 100%;
+    min-height: 150px;
+	}
+	.sidebar-container-content {
+    top: 0px;
+	}
+	.box-course-details {
+    width: 100%;
+    margin-bottom: 20px;
+	}
+	.box-course-details:hover {
+		transform: scale(0.9);
+	}
+	.home-video .promo-pannel__video {
+    min-height: 250px;
+	}
+	.img-4{
+		display: none;
+	}
+	.content{
+		text-align: center;
+	}
+	.elipse.small{
+	    height:0;
+	    width:0;
+	}
+	.text-muted{
+	    font-size: 1rem;
+	}
+	a.r-tabs-anchor{
+	    font-size: 18px;
+	    padding: 10px 0px;
+	}
+	.icon{
+		font-size: 1.5rem;
+	}
+	.footer-donate-block{
+		margin-top: 20px;
+	}
+	header.header .container-fluid {
+		padding-left: 0;
+		padding-right: 0
+	}
+}
+
+@media only screen and (max-width: 425px) {
+    h3{
+        font-size: 2rem;
+        display: block;
+    }
+    a{
+        font-size: 1rem;
+    }
+    .accordion__close::before {
+		font-size: 14px;
+		top: 6px;
+		left: 11px;
+	}
+	.icon{
+		font-size: 1.5rem;
+	}
+	header.header .container-fluid {
+		padding-left: 0;
+		padding-right: 0
+	}
+}
+@media only screen and (max-width: 991px){
+	.aside-menu__link {
+        color: #000;
+        font-size: 14px;
+        text-transform: capitalize;
+		margin-bottom: 1rem;
+		padding: 5px 0px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+	.main-menu__item .main-menu__link{
+        font-size: 12px;
+    }
+    .main-menu__item:not(:last-of-type) {
+        margin-right: 20px;
+    }
+	header.header--front_3 {
+        padding:9px 5px;
+    }
+	header.header .button {
+        width: auto;
+		text-transform: capitalize;
+		text-align: center;
+		padding: 8px 15px;
+		border-radius:0.187em;
+		min-width: auto;
+		height:auto;
+    }
+}

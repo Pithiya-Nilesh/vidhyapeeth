@@ -1,0 +1,521 @@
+{% extends "templates/base.html" %}
+{% block title %}{{ course.course_name }}{% endblock %}
+{% from "www/learning/macros/hero.html" import hero %}
+{% from "www/learning/macros/card.html" import null_card %}
+{% set resume = 0 %}
+{% set start = 0 %}
+{% set article = 0 %}
+{% set complete = 0 %}
+{% block head_include %}
+<!-- styles-->
+<link rel="stylesheet" href="../files/css/styles.min.css" />
+<link rel="stylesheet" href="../files/css/responsive.css" />
+{% endblock %}
+
+
+{% macro card(topic) %}
+{% if has_access %}
+<!--         <a href="/learning/topic?program={{ program }}&course={{ course.name }}&topic={{ topic.name }}"class="no-decoration no-underline">-->
+
+{% else %}
+<a href="/login#login"></a>
+{% endif %}
+
+<span id="link"></span>
+<div class="accordion accordion--primary mb-3">
+    <div class="accordion__title-block">
+        <h6 class="accordion__title row">
+            <div class='card-title col-lg-9'>
+                {{ topic.topic_name }}
+            </div>
+            {% if has_access %}
+            <div class="col-lg-3">
+                {% if progress[topic.name].completed %}
+                <span class="indicator green">{{_('Completed')}}</span>
+                <span id="topic2" hidden>{{ topic.topic_name }}</span>
+                <span id="program2" hidden>{{ program }}</span>
+                <span id="course2" hidden>{{ course.course_name }}</span>
+                {% set complete = complete + 1 %}
+                <span id="complete" hidden>{{complete}}</span>
+                {% elif progress[topic.name].started and has_access %}
+                <span class="indicator orange">{{_('In Progress')}}</span><br>
+                <span id="topic" hidden>{{ topic.topic_name }}</span>
+                <span id="program" hidden>{{ program }}</span>
+                <span id="course" hidden>{{ course.course_name }}</span>
+                {% set resume = resume + 1 %}
+                <span id="resume" hidden>{{resume}}</span>
+                {% else %}
+                <span class="indicator blue" hidden>{{_('Start')}}</span>
+                <span id="topic1" hidden>{{ topic.topic_name }}</span>
+                <span id="program1" hidden>{{ program }}</span>
+                <span id="course1" hidden>{{ course.course_name }}</span>
+                {% set start = start + 1 %}
+                <span id="start" hidden>{{start}}</span>
+                {% endif %}
+            </div>
+            {% else %}
+            </a>
+
+            {% endif %}
+
+        </h6><span class="accordion__close"></span>
+    </div>
+    <div onload="check()" class="accordion__text-block">
+        <div class="syllabus">
+            <ul class="list-unstyled">
+                {% if has_access %}
+                {% if progress[topic.name].completed %}
+                {% for content in topic.topic_content %}
+                <span id="content2" hidden>{{content.content}}</span>
+                {% endfor %}
+                {% elif progress[topic.name].started %}
+                {% for content in topic.topic_content %}
+                <span id="content" hidden>{{content.content}}</span>
+                {% endfor %}
+                {% else %}
+                {% for content in topic.topic_content %}
+                <span id="content1" hidden>{{content.content}}</span>
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+                {% for content in topic.topic_content %}
+                <span id="type" hidden>{{ content.content_type }}</span>
+                <li class="">
+                    {% if content.content_type == 'Article' %}
+                    <img src="../files/img/home/article.png" alt="">
+                    {% elif content.content_type == 'Video' %}
+                    <img src="../files/img/home/play-icon.svg" alt="">
+                    {% else %}
+                    <img src="../files/img/home/quiz.png" alt="">
+                    {% endif %}
+                    {% if has_access %}
+                    <a class="text-muted text-decoration-none text-start" style="width: 100%;"
+                        href="/learning/content?program={{ program }}&course={{ course.name }}&topic={{ topic.name }}&type={{ content.content_type }}&content={{ content.content }}">
+                        {{ content.content }}
+                    </a>
+                    {% else %}
+                    <a class="text-muted text-decoration-none text-start">{{ content.content }}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+                {% if has_access %}
+                <div class='card-footer' hidden>
+                    {% if progress[topic.name].completed %}
+                    <span class="indicator green">{{_('Completed')}}</span>
+                    {% elif progress[topic.name].started %}
+                    <span class="indicator orange">{{_('In Progress')}}</span>
+                    {% else %}
+                    <span class="indicator blue" hidden>{{_('Start')}}</span>
+                    {% endif %}
+                </div>
+                </a>
+                {% else %}
+                </a>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}
+{% block content %}
+<main class="main">
+    <iframe id="1" src="/learning" hidden></iframe>
+    <section class="inner-slide">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto col-md-8 col-xs-12 col-xl-8 ">
+                    {{ hero(course.course_name, course.description, has_access, {'name': 'Program', 'url':
+                    '/learning/program?program=' + program }) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- shop product start-->
+    <section class="section course-detail-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-xl-8">
+                    <div class="tabs horizontal-tabs shop-product-tabs mb-5">
+                        <ul class="horizontal-tabs__header">
+                            <li><a href="#horizontal-tabs__item-1"><span
+                                        id="description">{{_('Description')}}</span></a></li>
+                            <li><a href="#horizontal-tabs__item-2"><span id="syllabus">{{_('Syllabus')}}</span></a></li>
+                            {% if data %}<li><a href="#horizontal-tabs__item-3"><span
+                                        id="faculties">{{_('Faculties')}}</span></a></li>
+                            {% endif %}
+                        </ul>
+                        <div class="horizontal-tabs__content">
+                            <div class="horizontal-tabs__item" id="horizontal-tabs__item-1">
+                                <div class="shop-product__description">
+                                    <!-- <p><strong>Colossal pyramids, imposing temples, golden treasures, enigmatic
+                                                hieroglyphs, powerful pharaohs, strange gods, and mysterious mummies are
+                                                features of Ancient Egyptian culture that have fascinated people over
+                                                the millennia. </strong></p>
+                                        <div class="what-will-learn mt-3 mb-3">
+                                            <h6 class="shop-product__title">What you'll learn</h6>
+                                            <p>Colossal pyramids, imposing temples, golden treasures, enigmatic
+                                                hieroglyphs, powerful pharaohs, strange gods, </p>
+
+
+                                        </div>
+                                        <h6 class="tabs__title">Access</h6>
+                                        <p>Colossal pyramids, imposing temples, golden treasures, enigmatic hieroglyphs,
+                                            powerful pharaohs, strange gods, and mysterious mummies are features of
+                                            Ancient Egyptian culture that have fascinated people over the millennia. The
+                                            Bible refers to its gods, rulers, and pyramids. Neighboring cultures in the
+                                            ancient Near East and Mediterranean wrote about its god-like kings and its
+                                            seemingly endless supply of gold. The Greeks and Romans describe aspects of
+                                            Egypt's culture and history.</p> -->
+
+                                    {{course.description_in_details}}
+                                </div>
+                            </div>
+                            <div class="horizontal-tabs__item" id="horizontal-tabs__item-2">
+                                <div class="row">
+                                    <div class="col-lg-12 col-xl-12">
+                                        {% for topic in topics %}
+                                        {{ card(topic) }}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if data %}
+                            <div class="horizontal-tabs__item" id="horizontal-tabs__item-3">
+                                <div class="row offset-margin">
+                                    {% for instructor in data %}
+                                    <div class="col-md-4 col-xl-4">
+                                        <!-- iteam start				-->
+                                        <div class="team-item team-item--horizontal">
+                                            <div class="team-item__img-holder">
+                                                <div class="team-item__img"><img class="img--bg"
+                                                        src="{{instructor[1] or ''}}" alt="teammate"></div>
+                                            </div>
+                                            <div class="team-item__description">
+                                                <div class="team-item__name">{{instructor[0] or ''}}</div>
+                                                <!--                                                        <div class="team-item__position">Music Teacher</div>-->
+                                            </div>
+                                        </div>
+                                        <!-- iteam end-->
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="shop-product__description">
+                        <hr class="mb-5">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="box-course-details">
+
+                                    <p>150+</p>
+                                    <img src="../files/img/home/swirl-bottom.png" alt="">
+                                    <p class="title">Learners</p>
+                                    <img src="../files/img/home/swirl.png" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+
+                                <div class="box-course-details">
+
+                                    <p>255+</p>
+                                    <img src="../files/img/home/swirl-bottom.png" alt="">
+                                    <p class="title">Cities</p>
+                                    <img src="../files/img/home/swirl.png" alt="">
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="box-course-details">
+
+                                    <p>3+</p>
+                                    <img src="../files/img/home/swirl-bottom.png" alt="">
+                                    <p class="title">Country</p>
+                                    <img src="../files/img/home/swirl.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4 offset-lg-0 ">
+                    <!-- dual slider start-->
+                    <div class="sidebar-container">
+                        <div class="sidebar-container-content">
+                            <div class="course-video-sample">
+                                <div class="promo-pannel__video">
+                                    <img class="img--bg" src="../files/img/courses/course-video-sample-bg.jpg"
+                                        alt="image">
+                                    <a class="video-trigger circle"
+                                        href="https://www.youtube.com/watch?v=_sI_Ps7JSEk"><i class="fa fa-play"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                            <div class="sidebar-container-content__content">
+                                <div class="course-fee">
+                                    <h4 class="heading__title-small mb-3">{{_('Free Course')}}</h4>
+
+                                    {% if frappe.session.user == 'Guest' %}
+                                    <a id="signup" class="button button--filled w-100" href="/login#signup">+{{_('Sign
+                                        Up')}}</a>
+                                    {% elif has_access %}
+                                    <button onclick="resume()" class="button button--filled w-100 no-border"
+                                        id="topic_resume"></button>
+                                    {% else %}
+                                    <span id="enroll" class="button button--filled w-100"
+                                        onclick="enroll()">{{_('Enroll')}}</span>
+                                    {% endif %}
+
+                                </div>
+                                <div class="course-includes">
+                                    <h6>{{_('This course includes: ')}} </h6>
+                                    <ul class="shop-product__list">
+                                        <li><i class="fa fa-video-camera"></i> {{course.no_of_video_hours}} {{_('hours
+                                            on-demand video')}}</li>
+                                        <li><i class="fa fa-file"></i> {{course.no_of_total_articles}} articles </li>
+                                        <!-- <li><i class="fa fa-download"></i> 152 downloadable resources </li> -->
+                                        <li><i class="fa fa-mobile-phone"></i> {{_('Access on')}} {{course.access_on}}
+                                        </li>
+                                        <li><i class="fa fa-info"></i> {{_('Full lifetime access :')}}
+                                            {{course.lifetime_access}} </li>
+                                        <!-- <li><i class="fa fa-list-ol"></i> Assignments </li> -->
+                                        <li><i class="fa fa-certificate"></i> {{_('Certificate of completion :')}}
+                                            {{course.certificate_of_completion}} </li>
+                                    </ul>
+                                </div>
+                                <div class="side-note">
+                                    <hr>
+                                    <!-- <p>Minnow snoek icefish velvet-belly shark, California halibut round
+                                            stingray northern sea robin. Southern grayling trout-perch. Sharksucker
+                                            sea toad candiru</p> -->
+                                    <a href="#" class="button button--primary mt-4 border border-secondary">{{_('Enroll
+                                        now for free')}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dual slider end-->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- shop product end-->
+
+
+    <!-- section start-->
+    <!-- <section class="section background--green-mild product-list">
+            <div class="container">
+                <div class="row align-items-end margin-bottom">
+                    <div class="col-md-7 col-lg-8">
+                        <div class="heading heading--primary">
+                            <h2 class="heading__title-small no-margin-bottom"><span>Top Rated Music and Art
+                                    Courses</span></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4 text-md-right">
+                         slider nav start
+                        <div class="slider__nav related-slider__nav">
+                            <div class="slider__arrows">
+                                <div class="slider__prev"><i class="fa fa-chevron-left" aria-hidden="true"></i> </div>
+                                <div class="slider__next"><i class="fa fa-chevron-right" aria-hidden="true"></i> </div>
+                            </div>
+                        </div>
+                         slider nav end
+                    </div>
+                </div>
+                <div class="row offset-margin">
+                    <div class="col-12">
+                        <div class="related-slider">
+                            <div class="related-slider__item">
+                                <div class="shop-item">
+                                    <div class="shop-item__img"><span
+                                            class="shop-item__badge shop-item__badge--new">New</span><a
+                                            class="shop-item__add" href="#"> <span>View Details</span></a><img
+                                            class="img--contain" src="../files/img/courses/course-2.jpg" alt="img" />
+                                    </div>
+                                    <div class="shop-item__details">
+                                        <h6 class="shop-item__name"><a href="#">Introduction to Classical Music</a></h6>
+                                        <span class="shop-item__price"><strong>Duration: </strong>3 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="related-slider__item">
+                                <div class="shop-item">
+                                    <div class="shop-item__img"><a class="shop-item__add" href="#"> <span>View
+                                                Details</span></a><img class="img--contain"
+                                            src="../files/img/courses/course-3.jpg" alt="img" /></div>
+                                    <div class="shop-item__details">
+                                        <h6 class="shop-item__name"><a href="shop-product.html">Bachelor of Applied Arts
+                                                and Sciences</a></h6>
+                                        <span class="shop-item__price"><strong>Duration: </strong>3 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="related-slider__item">
+                                <div class="shop-item">
+                                    <div class="shop-item__img"><span
+                                            class="shop-item__badge shop-item__badge--trending">Trending</span><a
+                                            class="shop-item__add" href="#"> <span>View Details</span></a><img
+                                            class="img--contain" src="../files/img/courses/course-2.jpg" alt="img" />
+                                    </div>
+                                    <div class="shop-item__details">
+                                        <h6 class="shop-item__name"><a href="#">Introduction to Classical Music</a></h6>
+                                        <span class="shop-item__price"><strong>Duration: </strong>3 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="related-slider__item">
+                                <div class="shop-item">
+                                    <div class="shop-item__img"><a class="shop-item__add" href="#"> <span>View
+                                                Details</span></a><img class="img--contain"
+                                            src="../files/img/courses/course-3.jpg" alt="img" /></div>
+                                    <div class="shop-item__details">
+                                        <h6 class="shop-item__name"><a href="shop-product.html">Bachelor of Applied Arts
+                                                and Sciences</a></h6>
+                                        <span class="shop-item__price"><strong>Duration: </strong>3 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="related-slider__item">
+                                <div class="shop-item">
+                                    <div class="shop-item__img">
+                                        <!-- <span class="shop-item__badge shop-item__badge--sale">Sale - 50%</span> -->
+    <!-- <a class="shop-item__add" href="#"> <span>View Details</span></a><img
+                                            class="img--contain" src="../files/img/courses/course-2.jpg" alt="img" />
+                                    </div>
+                                    <div class="shop-item__details">
+                                        <h6 class="shop-item__name"><a href="#">Introduction to Classical Music</a></h6>
+                                        <span class="shop-item__price"><strong>Duration: </strong>3 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="related-slider__item">
+                                <div class="shop-item">
+                                    <div class="shop-item__img"><a class="shop-item__add" href="#"> <span>View
+                                                Details</span></a><img class="img--contain"
+                                            src="../files/img/courses/course-3.jpg" alt="img" /></div>
+                                    <div class="shop-item__details">
+                                        <h6 class="shop-item__name"><a href="shop-product.html">Bachelor of Applied Arts
+                                                and Sciences</a></h6>
+                                        <span class="shop-item__price"><strong>Duration: </strong>3 Months</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+    </div>
+    </section>
+    <!-- section end-->
+
+    <!-- Subscribe Section start-->
+    <section class="section subscribe-section">
+        <div class="container">
+            <div class="col-md-8 offset-md-2 col-xs-12">
+                <form class="form-subscribe form-subscribe-wrap">
+                    <div class="form-group">
+                        <h5 class="mb-2 text-center">Subscribe to our newsletter</h5>
+                        <p class="small text-center">Join our subscribers list to get the latest news, updates and
+                            special offers.</p>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email" required="">
+                            <div class="input-group-append">
+                                <input type="submit" class="button button--filled" value="Subscribe">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section> <!-- Subscribe Section end-->
+</main>
+
+<script>
+    WebFontConfig = {
+
+        google: {
+
+            families: ['Comfortaa:300,500,700', 'Open Sans:400,600']
+
+        }
+
+    }
+
+    function font() {
+
+        var wf = document.createElement('script')
+
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'
+        wf.type = 'text/javascript'
+        wf.async = 'true'
+
+        var s = document.getElementsByTagName('script')[0]
+
+        s.parentNode.insertBefore(wf, s)
+
+    }
+
+
+    function resume() {
+
+        try {
+            try {
+                const topic = document.getElementById('topic').innerHTML;
+                const program = document.getElementById('program').innerHTML;
+                const course = document.getElementById('course').innerHTML;
+                const content = document.getElementById('content').innerHTML;
+                const type = document.getElementById('type').innerHTML;
+                location.href = '/learning/content?program=' + program + '&course=' + course + '&topic=' + topic + '&type=' + type + '&content=' + content;
+            }
+            catch {
+                const topic1 = document.getElementById('topic1').innerHTML;
+                const program1 = document.getElementById('program1').innerHTML;
+                const course1 = document.getElementById('course1').innerHTML;
+                const content1 = document.getElementById('content1').innerHTML;
+                const type1 = document.getElementById('type').innerHTML;
+                location.href = '/learning/content?program=' + program1 + '&course=' + course1 + '&topic=' + topic1 + '&type=' + type1 + '&content=' + content1;
+            }
+        }
+        catch {
+            const topic2 = document.getElementById('topic2').innerHTML;
+            const program2 = document.getElementById('program2').innerHTML;
+            const course2 = document.getElementById('course2').innerHTML;
+            const content2 = document.getElementById('content2').innerHTML;
+            const type2 = document.getElementById('type').innerHTML;
+            location.href = '/learning/content?program=' + program2 + '&course=' + course2 + '&topic=' + topic2 + '&type=' + type2 + '&content=' + content2;
+        }
+    }
+
+
+    document.getElementById("1").onload = function () { check() };
+
+    function check() {
+        document.getElementById('topic_resume').innerHTML = "{{_('start')}}";
+        try {
+            var resume = document.getElementById('resume').innerHTML;
+            if (resume >= 1) {
+                document.getElementById('topic_resume').innerHTML = "{{_('Resume')}}";
+            }
+        }
+        catch {
+            var complete = document.getElementById('start').innerHTML;
+            if (complete >= 1) {
+                document.getElementById('topic_resume').innerHTML = "{{_('start')}}";
+            }
+
+        }
+    }
+
+
+
+</script>
+<!-- libs-->
+<script src="../files/js/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+<script src="../files/js/libs.min.js"></script>
+<!-- scripts-->
+<script src="../files/js/common.min.js"></script>
+{% endblock %}

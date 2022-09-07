@@ -1,0 +1,284 @@
+{% extends "templates/base.html" %}
+{% block title %}{{ program.program_name }}{% endblock %}
+{% from "www/learning/macros/hero.html" import hero %}
+{% from "www/learning/macros/card.html" import null_card %}
+
+{% block head_include %}
+<!-- styles-->
+<link rel="stylesheet" href="../files/css/styles.min.css" />
+<link rel="stylesheet" href="../files/css/responsive.css" />
+<!-- web-font loader-->
+<script>
+    WebFontConfig = {
+
+        google: {
+            families: ['Comfortaa:300,500,700', 'Open Sans:400,600']
+        }
+    }
+
+    function font() {
+
+        var wf = document.createElement('script')
+
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'
+        wf.type = 'text/javascript'
+        wf.async = 'true'
+
+        var s = document.getElementsByTagName('script')[0]
+
+        s.parentNode.insertBefore(wf, s)
+
+    }
+
+    font()
+</script>
+<style>
+    div.card-hero-img {
+        height: 220px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(250, 251, 252);
+    }
+
+    .card-image-wrapper {
+        display: flex;
+        overflow: hidden;
+        height: 220px;
+        background-color: rgb(250, 251, 252);
+        justify-content: center;
+    }
+
+    .image-body {
+        align-self: center;
+        color: #d1d8dd;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 20px;
+    }
+
+    section {
+        padding: 5rem 0 5rem 0;
+    }
+
+    .inner-slide {
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        padding: 23px 0 30px;
+        background: linear-gradient(135deg, #f76600 0%, #900035 100%);
+    }
+</style>
+{% endblock %}
+
+
+{% macro card(course) %}
+<div class="col-sm-4 col-md-6 col-lg-4 mb-4 text-left">
+    <a href="/learning/course?name={{ course.name }}&program={{ program.name }}" class="no-decoration no-underline">
+        <div class="card h-100">
+            {% if course.hero_image %}
+            <div class="card-hero-img" style="background-image: url('{{ course.hero_image }}')"></div>
+            {% else %}
+            <div class="card-image-wrapper text-center">
+                <div class="image-body"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
+            </div>
+            {% endif %}
+            <div class='card-body'>
+                <h5 class='card-title'>{{ course.course_name }}</h5>
+                <div class="text-muted">{{ course.description[:110] + '...' if course.description else '' }}</div>
+            </div>
+
+            <!-- progress code start hear -->
+
+
+            <!-- progress code end hear -->
+
+        </div>
+    </a>
+</div>
+{% endmacro %}
+
+{% block content %}
+<main class="main">
+    <section class="inner-slide">
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <h1 class="promo-primary__title"><span>{{ program.program_name }}</span></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- causes inner start-->
+
+    <!-- about Piyushbava start-->
+    {% if frappe.session.user == "Guest" %}
+    <section class="section video-section pb-3 background&#45;&#45;green-mild">
+        <div class="img-1 vert-move">
+            <img src="../files/img/home/lotus.png" alt="">
+        </div>
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-lg-5 col-md-5 col-sm-5 text-center">
+                    <div class="video-img">
+                        <div class="promo-pannel__video promo-pannel__video2">
+                            <img class="img--bg" src="../files/img/home/video-bg_granth.jpg" alt="image">
+                            <a class="video-trigger" href="https://www.youtube.com/watch?v=_sI_Ps7JSEk"><i
+                                    class="fa fa-play" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 offset-md-1 offset-xl-1">
+                    <div class="video-content">
+                        <h2 class="heading__title">
+                            <img src="../files/img/home/lotus-pink.png" alt="" class="img-heading"><span> {{
+                                program.program_name }} </span><img src="../files/img/home/lotus-pink.png" alt=""
+                                class="img-heading">
+                        </h2>
+                        <p class="">{{program.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!-- about Piyushbava end-->
+    <!-- section start-->
+    <section class="section background&#45;&#45;green-mild">
+        <div class="container">
+            <div class="row align-items-end margin-bottom">
+                <div class="col-md-7 col-lg-8">
+                    <div class="heading heading--primary">
+                        <h2 class="heading__title-small"><span style="color:#900035;">{{_('Courses Details')}}</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row offset-margin ">
+                {% for course in courses %}
+                {{ card(course) }}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- section end-->
+
+
+    <!-- causes inner end-->
+    <section class="section pt-3 pb-3">
+        <div class="container">
+            <div class="ad-box-row">
+                <div class="ad-box-outer-container non-last-item item">
+                    <div>
+                        <div class="ad-box-inner-container" style="background:#fdcb18">
+                            <div class="left-side-container">
+                                <div class="title-with-partner">
+                                    <div class="partner-name">University of Michigan</div>
+                                    <h3 class="title">
+                                        <a href="#" tabindex="-1" aria-hidden="true" class="">Advance Your Career in
+                                            Social Work</a>
+                                    </h3>
+                                </div>
+                                <p class="">Earn degree credit and a university-issued credential in the Social Work
+                                    MasterTrack.</p>
+                                <a href="#" class="button button--filled">Get started</a>
+                            </div>
+                            <div class="right-side-container">
+                                <img src="../files/img/courses/left-ad-img.png" alt="" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-box-outer-container">
+                    <div>
+                        <div class="ad-box-inner-container white">
+                            <div class="left-side-container">
+                                <div class="title-with-partner">
+                                    <div class="partner-name">University of Michigan</div>
+                                    <h3 class="title">
+                                        <a href="#" tabindex="-1" aria-hidden="true">Advance Your Career in Social
+                                            Work</a>
+                                    </h3>
+                                </div>
+                                <p>Earn degree credit and a university-issued credential in the Social Work MasterTrack.
+                                </p>
+                                <a href="#" class="button button--filled">Get started</a>
+                            </div>
+                            <div class="right-side-container">
+                                <img src="../files/img/courses/left-ad-img.png" alt="" aria-hidden="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section additional-events background&#45;&#45;green-mild">
+        <div class="container">
+            <div class="row no-gutters row-flex">
+                <div class="col-md-6">
+                    <div class="additional-event"><a class="additional-event__img" href="#"><img class="img--bg"
+                                src="../files/img/courses/course-ad.jpg" alt="img">
+                            <div class="additional-event__text"><span>Advance Your Career<br> in Social Work</span>
+                            </div>
+                        </a></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="additional-event"><a class="additional-event__img additional-event__img-blue"
+                            href="#"><img class="img--bg" src="../files/img/courses/course-ad-2.jpg" alt="img">
+                            <div class="additional-event__text">
+                                <p class="text-white">Earn degree credit and a university-issued<br> credential in the
+                                    Social Work MasterTrack.</p>
+                                <button class="button btn-ad">Enroll Now</button>
+                            </div>
+                        </a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe Section start-->
+    <section class="section subscribe-section">
+        <div class="container">
+            <div class="col-md-8 offset-md-2 col-xs-12">
+                <form class="form-subscribe form-subscribe-wrap">
+                    <div class="form-group">
+                        <h5 class="mb-2 text-center">Subscribe to our newsletter</h5>
+                        <p class="small text-center">Join our subscribers list to get the latest news, updates and
+                            special offers.</p>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email" required="">
+                            <div class="input-group-append">
+                                <input type="submit" class="button button--filled" value="Subscribe">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </section> <!-- Subscribe Section end-->
+
+</main>
+<!-- libs-->
+<script src="./files/js/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+<script src="./files/js/libs.min.js"></script>
+<!--scripts-->
+<script src="./files/js/common.min.js"></script>
+<script>
+    $('.slider-nav2').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        dots: false,
+        focusOnSelect: true
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include vidhyapeeth *.css
+recursive-include vidhyapeeth *.csv
+recursive-include vidhyapeeth *.html
+recursive-include vidhyapeeth *.ico
+recursive-include vidhyapeeth *.js
+recursive-include vidhyapeeth *.json
+recursive-include vidhyapeeth *.md
+recursive-include vidhyapeeth *.png
+recursive-include vidhyapeeth *.py
+recursive-include vidhyapeeth *.svg
+recursive-include vidhyapeeth *.txt
+recursive-exclude vidhyapeeth *.pyc

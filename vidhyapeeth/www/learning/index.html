@@ -1,0 +1,357 @@
+{% extends "templates/base.html" %}
+{% block title %}{{ education_settings.portal_title }}{% endblock %}
+{% from "www/learning/macros/card.html" import program_card %}
+{% from "www/learning/macros/card.html" import null_card %}
+
+{% block head_include %}
+<meta name="description" content="{{ education_settings.description }}" />
+<meta name="keywords"
+    content="ERP Software, Cloud ERP, Open Source ERP, Accounting Software, Online ERP, Online Accounting, ERP for small business" />
+<!-- styles-->
+<link rel="stylesheet" href="./files/css/styles.min.css" />
+<link rel="stylesheet" href="./files/css/responsive.css" />
+
+<script>
+    WebFontConfig = {
+
+        google: {
+
+            families: ['Comfortaa:300,500,700', 'Open Sans:400,600']
+
+        }
+
+    }
+
+    function font() {
+
+        var wf = document.createElement('script')
+
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'
+        wf.type = 'text/javascript'
+        wf.async = 'true'
+
+        var s = document.getElementsByTagName('script')[0]
+
+        s.parentNode.insertBefore(wf, s)
+
+    }
+
+    font()
+</script>
+<style>
+    div.card-hero-img {
+        height: 220px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(250, 251, 252);
+    }
+
+    .card-image-wrapper {
+        display: flex;
+        overflow: hidden;
+        height: 220px;
+        background-color: rgb(250, 251, 252);
+        justify-content: center;
+    }
+
+    .image-body {
+        align-self: center;
+        color: #d1d8dd;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 20px;
+    }
+
+    section {
+        padding: 5rem 0 5rem 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<main class="main">
+
+    <div class="slide-wrap">
+        <div class="container">
+            <div class="content">
+                <div class="promo-slider__title h1"><span>{{_('Full skill ahead')}}</span></div>
+                <p class="promo-slider__subtitle">{{_('Build skills with courses, certificates,<br>and degrees online
+                    from world-class universities and companies')}}</p>
+                <br>
+                <a class="button button--filled btn-lg" href="#">{{_('Join for free')}}</a>
+            </div>
+        </div>
+    </div>
+    <!-- promo start-->
+    <!-- promo end-->
+
+    <section class="section about-us--blue" style="overflow: hidden;">
+        <div class="img-4">
+            <img src="./files/img/home/freehand-design.png" alt="">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-xl-6 offset-xl-1">
+                    <div class="h1 heading heading--primary"><span class="heading__pre-title">{{_('About Us')}}</span>
+                        <div class="heading__title"><span>{{_('About Pushtisanskar Vidyapeeth')}}</span>
+                        </div>
+                    </div>
+                    <p><strong class="">Thresher shark rudd African lungfish silverside, Red salmon rockfish
+                            grunion, garpike zebra danio king-of-the-salmon banjo catfish."</strong></p>
+                    <p class="no-margin-bottom">Sea chub demoiselle whalefish zebra lionfish mud cat pelican eel.
+                        Sharksucker sea toad candiru rocket danio warbonnet</p><a
+                        class="button button--filled margin-top mb-3" href="#">{{_('More about')}}</a>
+                </div>
+                <div class="col-lg-6 col-xl-5 text-center">
+                    <img class="about-home-img" src="./files/img/home/about-img.png" alt="">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- about Piyushbava start-->
+    <section class="section video-section p-0">
+
+
+        <div class="container-fluid">
+            <div class="row row-flex no-gutters">
+                <div class="col-lg-5 col-md-6 col-sm-6 text-center">
+                    <div class="row">
+                        <div class="video-img home-video">
+                            <div class="promo-pannel__video">
+                                <img class="img--bg" src="./files/img/home/video-bg.jpg" alt="image">
+                                <a class="video-trigger" href="https://www.youtube.com/watch?v=_sI_Ps7JSEk"><i
+                                        class="fa fa-play" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 offset-lg-1 offset-md-1 col-md-5 col-sm-6">
+                    <div class="video-content">
+                        <div class="h1 heading__title pt-5"><span>{{_('Get personal learning <br> recommendations')}}</span>
+                        </div>
+                        <p class=""><strong class="">Sea chub demoiselle whalefish zebra lionfish mud cat pelican
+                                eel. Minnow snoek icefish velvet-belly shark, California halibut round stingray
+                                northern sea robin. Southern grayling trout-perch</strong></p>
+                        <p class="pb-5">Sharksucker sea toad candiru rocket danio tilefish stingray deepwater
+                            stingray Sacramento splittail, Canthigaster rostrata. Midshipman dartfish Modoc sucker,
+                            yellowtail kingfish basslet. Buri chimaera triplespine northern sea robin zingel
+                            lancetfish galjoen fish, catla wolffish, mosshead warbonnet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about Piyushbava end-->
+
+
+    <!-- causes start-->
+    <section class="section causes" style="overflow:visible;">
+        <div class="img-2 vert-move">
+            <img src="./files/img/home/feather.png" alt="">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="heading heading--primary">
+                        <div class="h1 heading__title"><span>{{_('Course catagories we offer')}}</span></div>
+                    </div>
+                </div>
+                {% if education_settings.description %}
+                <p class='lead ml-4'>{{ education_settings.description }}</p>
+                {% endif %}
+            </div>
+            <!--                <p class="">-->
+            <!--                        {% if frappe.session.user == 'Guest' %}-->
+            <!--                        <div class="d-flex">-->
+            <!--                            <a class="button button&#45;&#45;filled btn-lg" href="/login#signup">{{_('Sign Up')}}</a>-->
+            <!--                        </div>-->
+            <!--                        {% endif %}-->
+            <!--                </p>-->
+
+            <div class="row">
+                {% if featured_programs %}
+                {% for program in featured_programs %}
+                {{ program_card(program.program, program.has_access) }}
+                {% endfor %}
+                {% for n in range( (3 - (featured_programs|length)) %3) %}
+                {{ null_card() }}
+                {% endfor %}
+                {% else %}
+                <!--                                <p class="lead">You have not enrolled in any program. Contact your Instructor.</p>-->
+                {% endif %}
+            </div>
+
+        </div>
+
+    </section>
+    <!-- causes end-->
+
+    <section class="section elements pt-0">
+        <!-- counter style-1 start-->
+        <div class="container">
+
+
+            <div class="row offset-margin">
+                <div class="col-md-3 col-xs-6 text-center">
+                    <div class="counter-item counter-item--style-1">
+                        <div class="counter-item__top">
+                            <div class="counter-item-top-img">
+                                <img src="./files/img/home/students.svg">
+                            </div>
+                            <h6 class="counter-item__title">{{_('No of Students')}}</h6>
+                        </div>
+                        <div class="counter-item__lower"><span class="js-counter">200</span><span>k</span></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-6 text-center">
+                    <div class="counter-item counter-item--style-1">
+                        <div class="counter-item__top">
+                            <div class="counter-item-top-img">
+                                <img src="./files/img/home/catagories.svg">
+                            </div>
+                            <h6 class="counter-item__title">{{_('No of Categories')}}</h6>
+                        </div>
+                        <div class="counter-item__lower"><span class="js-counter">655</span><span>+</span></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-6 text-center">
+                    <div class="counter-item counter-item--style-1">
+                        <div class="counter-item__top">
+                            <div class="counter-item-top-img">
+                                <img src="./files/img/home/courses.svg">
+                            </div>
+                            <h6 class="counter-item__title">{{_('No of Courses')}}</h6>
+                        </div>
+                        <div class="counter-item__lower"><span class="js-counter">100</span><span>k +</span></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-6 text-center">
+                    <div class="counter-item counter-item--style-1">
+                        <div class="counter-item__top">
+                            <div class="counter-item-top-img">
+                                <img src="./files/img/home/number-video1.svg">
+                            </div>
+                            <h6 class="counter-item__title">{{_('No of Videos')}}</h6>
+                        </div>
+                        <div class="counter-item__lower"><span class="js-counter">1585</span><span>+</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- counter style-1 end-->
+    </section>
+
+    <!-- testimonials style-2 start-->
+    <section class="section testimonials--style-2">
+        <div class="container">
+            <div class="elipse small"></div>
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="heading heading--primary"><span class="heading__pre-title">Testimonials</span>
+                        <div class="heading__title"><span>What People</span><br /><span>Says About Us</span></div>
+                    </div>
+                    <!-- slider nav start-->
+                    <div class="slider__nav testimonials-style-2__nav">
+                        <div class="slider__arrows">
+                            <div class="slider__prev"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </div>
+                            <div class="slider__next"><i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- slider nav end-->
+                </div>
+                <div class="col-xl-8">
+                    <div class="testimonials-slider testimonials-slider--style-2">
+                        <div class="testimonials-slider__item">
+                            <div class="testimonials-slider__icon">“</div>
+                            <div class="testimonials-slider__text">
+                                <p class="text-white">Slickhead grunion lake trout. Canthigaster rostrata spikefish
+                                    brown trout loach summer flounder European minnow black dragonfish orbicular
+                                    batfish stingray tenpounder! Flying characin herring, Moses sole sea snail
+                                    grouper discus. European eel slender snipe eel. </p>
+                                <div class="testimonials-slider__author"><span class="testimonials-slider__name">Jack
+                                        Wolfskin, </span><span class="testimonials-slider__position">Volunteer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonials-slider__item">
+                            <div class="testimonials-slider__icon">“</div>
+                            <div class="testimonials-slider__text">
+                                <p class="text-white">Slickhead grunion lake trout. Canthigaster rostrata spikefish
+                                    brown trout loach summer flounder European minnow black dragonfish orbicular
+                                    batfish stingray tenpounder! Flying characin herring, Moses sole sea snail
+                                    grouper discus. European eel slender snipe eel.</p>
+                                <div class="testimonials-slider__author"><span class="testimonials-slider__name">Jack
+                                        Wolfskin, </span><span class="testimonials-slider__position">Volunteer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonials-slider__item">
+                            <div class="testimonials-slider__icon">“</div>
+                            <div class="testimonials-slider__text">
+                                <p class="text-white">Slickhead grunion lake trout. Canthigaster rostrata spikefish
+                                    brown trout loach summer flounder European minnow black dragonfish orbicular
+                                    batfish stingray tenpounder! Flying characin herring, Moses sole sea snail
+                                    grouper discus. European eel slender snipe eel.</p>
+                                <div class="testimonials-slider__author"><span class="testimonials-slider__name">Jack
+                                        Wolfskin, </span><span class="testimonials-slider__position">Volunteer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- testimonials style-2 end-->
+</main>
+<script>
+    $('#language-switcher').on('change', function () {
+        frappe.call("frappe.translate.set_preferred_language_cookie", {
+            preferred_language: this.value
+        })
+        preferred_language = frappe.get_cookie('preferred_language')
+        frappe.call({
+            method: 'frappe.templates.includes.navbar.navbar.get_language',
+            args: {
+                'lang': preferred_language
+            },
+            callback: function (r) {
+                // code snippet
+                alert("a", r)
+            }
+        });
+        sessionStorage.setItem("language", this.value);
+    });
+    document.getElementById('language-switcher').value = preferred_language;
+
+    preferred_language = frappe.get_cookie('preferred_language')
+    frappe.call({
+        method: 'frappe.templates.includes.navbar.navbar.get_language',
+        args: {
+            'lang': preferred_language
+        },
+        callback: function (r) {
+            // code snippet
+            alert("r", r)
+        }
+    })
+</script>
+
+<!-- libs-->
+<script src="./files/js/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+<script src="./files/js/libs.min.js"></script>
+<!--scripts-->
+<script src="./files/js/common.min.js"></script>
+{% endblock %}
